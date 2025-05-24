@@ -16,7 +16,7 @@ const App = () => {
     return (
         <DataContextProvider>
 
-        <div className={"relative  w-full h-[210vh]  bg-[#606060]/15"}>
+        <div className={"relative  w-full h-[200vh] overflow-hidden  bg-[#606060]/15"}>
             <Navbar />
             <Filter />
             <Aside />

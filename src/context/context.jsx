@@ -1,21 +1,23 @@
-import React,{createContext,useContext,useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 import axios from "axios";
 import {format} from "date-fns";
-const DataContext =  createContext();
+
+const DataContext = createContext();
 
 export const DataContextProvider = ({children}) => {
 
     const [articles, setArticles] = useState([]);
     const [search, setSearch] = useState("");
     const [lineChartData, setLineChartData] = useState([]);
+    const [happiness, setHappiness] = useState(0);
     const [date, setDate] = useState({
-        startDate: new Date(),
+        startDate:  Date.now(),
         endDate: new Date(),
         key: 'selection',
     });
 
     const fetchArticleData = async () => {
-        const {data} = await axios.get(`https://ai.oigetit.com/AI71/Articles?json=%7B%22StartDate%22:%222024-09-01%22,%22EndDate%22:%222024-10-01%22,%22Query%22:%22${search}%22%7D`)
+        const {data} = await axios.get(`https://ai.oigetit.com/AI71/Articles?json=%7B%22StartDate%22:%22${format(date.startDate, "yyyy-MM-dd")}%22,%22EndDate%22:%22${format(date.endDate, "yyyy-MM-dd")}%22,%22Query%22:%22${search}%22%7D`)
         setArticles(data)
     }
 
@@ -26,7 +28,7 @@ export const DataContextProvider = ({children}) => {
     }
 
     //
-    return(
+    return (
         <DataContext.Provider
             value={{
                 articles,
@@ -36,7 +38,9 @@ export const DataContextProvider = ({children}) => {
                 fetchLineChartData,
                 lineChartData,
                 date,
-                setDate
+                setDate,
+                happiness,
+                setHappiness
             }}>
             {children}
         </DataContext.Provider>

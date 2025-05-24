@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import Theme from "../compontents/Theme.jsx";
 
 const TopTheme = () => {
+    useEffect(() => {
+        document.title = "Top Theme";
+    },[])
     return (
-        <div className={"w-full h-[52px] flex justify-center items-center absolute "}>
-            Top Theme
+        <div className={"top-90 w-[90%] bg-white   left-24  absolute px-5 py-4 flex  flex-col gap-5 "}>
+            <Theme />
         </div>
     );
 };

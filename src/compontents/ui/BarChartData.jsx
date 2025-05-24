@@ -10,25 +10,20 @@ const BarChartData = () => {
     const {date, search} = useData();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    useEffect(() => {
         const fetchData = async () => {
             try {
                 const {data} = await axios.get(
                     `https://ai.oigetit.com/AI71/Histogram?json=%7B%22StartDate%22:%22${format(date.startDate, "yyyy-MM-dd")}%22,%22EndDate%22:%22${format(date.endDate, "yyyy-MM-dd")}%22,%22Query%22:%22UAE%22%7D`
                 );
 
-                //
-                //
-                // Transform the data into the format required by Recharts
+
                 const transformedData = data.map(item => ({
                     date: ` ${item.pubdate}`,
-                    Negative: `${item.volume_neg.toString().slice(0, 3)}`,
-                    Positive: `${item.volume_pos.toString().slice(0, 3)}`,
-                    Neutral: `${item.volume_neu.toString().slice(0, 3)}`,
-                    Sentiment: `${parseFloat(item.sentiment * 100).toFixed()}%`,
-                    // Volume: `${item.volume * 6}`,
-                    Volume:`${item.volume}`,
-                    Volume_Num:`${item.volume.toString().slice(0, 2) * 17}`,
+                    Negative: item.volume_neg,
+                    Positive: item.volume_pos,
+                    Neutral: item.volume_neu,
+                    Volume:item.volume,
+                    Volume_Num:item.volume + 20,
                 }));
 
                 setData(transformedData);
@@ -39,14 +34,37 @@ const BarChartData = () => {
             }
         };
 
+
+    const CustomTooltip = ({payload,active,label}) => {
+        if (active && payload && payload.length) {
+            const dataPoint = payload[0].payload;
+            return (
+                <div className="custom-tooltip bg-white p-2 shadow rounded">
+                    <p className="label font-bold">{`Date: ${label}`}</p>
+                    {payload.map((entry, index) => (
+                        <div>
+                        <p key={index} style={{ color: entry.fill }}>{`${entry.name}: ${entry.value}`}</p>
+                        <p className={"text-green-400"}>Positive : {dataPoint.Positive}</p>
+                        <p className={"text-yellow-600"}>Neutral : {dataPoint.Neutral}</p>
+                        <p className={"text-red-500"}>Negative : {dataPoint.Positive}</p>
+                        </div>
+                    ))}
+                </div>
+            );
+        }
+        return null;
+    }
+
+    useEffect(() => {
         fetchData();
     }, [search, date]);
 
+
     return (
-        <div className={"shadow-xl px-5 py-4 w-[1300px] mx-auto border-t-2 border-gray-100 rounded-lg"}>
+        <div className={"shadow-xl px-5 py-4 w-[1200px] mx-auto border-t-2 border-gray-100 rounded-lg"}>
 
                 <Typography variant="h6" gutterBottom>
-                    Sentiment in Real-Time of "{search.length === 0 ? "UAE" : search}"
+                    Media Mentions of "{search.length === 0 ? "UAE" : search}"
                 </Typography>
             {loading ? (
                     <Box display="flex" justifyContent="center" alignItems="center" height={300}>
@@ -57,7 +75,7 @@ const BarChartData = () => {
                 (
 
                     <BarChart
-                        width={1300}
+                        width={1100}
                         height={400}
                         data={data}
                         margin={{
@@ -69,13 +87,13 @@ const BarChartData = () => {
                     >
                         <CartesianGrid strokeDasharray="2"/>
                         <XAxis dataKey="date"/>
-                        <YAxis dataKey={"Volume_Num"}  />
-                        <Tooltip/>
-                        <Legend fill={"circle"}/>
-                        <Bar dataKey="Negative" fill="#f00" activeBar={<Rectangle fill="red" stroke="red"/>}/>
-                        <Bar dataKey="Positive" fill="#0f0" activeBar={<Rectangle fill="#0f0" stroke="0f0"/>}/>
-                        <Bar dataKey="Neutral" fill="#FFCA58" activeBar={<Rectangle fill="#FFCA58" stroke="#FFCA58"/>}/>
-                        <Bar dataKey="Volume"  fill="none" />
+                        <YAxis dataKey="Volume_Num"  />
+                        <Tooltip content={<CustomTooltip/>}/>
+                        <Legend/>
+                        {/*<Bar dataKey="Negative" fill="#f00" activeBar={<Rectangle fill="red" stroke="red"/>}/>*/}
+                        {/*<Bar dataKey="Positive" fill="#0f0" activeBar={<Rectangle fill="#0f0" stroke="0f0"/>}/>*/}
+                        {/*<Bar dataKey="Neutral" fill="#FFCA58" activeBar={<Rectangle fill="#FFCA58" stroke="#FFCA58"/>}/>*/}
+                        <Bar dataKey="Volume" fill="#6989DD" />
                     </BarChart>
                 )
             }

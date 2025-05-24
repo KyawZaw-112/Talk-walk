@@ -10,9 +10,6 @@ import {useData} from "../../context/context.jsx";
 import {useEffect,useState} from "react";
 import {TablePagination} from "@mui/material";
 
-function createData(name, calories, fat, carbs, protein) {
-    return {name, calories, fat, carbs, protein};
-}
 
 export default function DataTable() {
     const [page, setPage] = useState(0);  // Current page index
@@ -24,10 +21,10 @@ export default function DataTable() {
         setRowsPerPage(parseInt(event.target.value, 10));
         setPage(0);  // Reset the table to the first page whenever rows per page changes
     };
-    const {articles, fetchArticleData,search} = useData();
+    const {articles, fetchArticleData,search,date} = useData();
     useEffect(() => {
         fetchArticleData();
-    }, [search])
+    }, [search,date])
     const result = articles.result;
     return (
         <TableContainer component={Paper}>
@@ -129,7 +126,7 @@ export default function DataTable() {
             <TablePagination
                 rowsPerPageOptions={[10, 25, 100,200,300,500,1000,2000]}
                 component="div"
-                count={result.length}
+                count={result?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

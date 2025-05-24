@@ -1,7 +1,9 @@
 import React from 'react';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {useData} from "../context/context.jsx";
 
 const HashtagHeader = () => {
+    const {setSearch,search} = useData();
     return (
         <div className={"absolute z-10 flex items-center justify-between gap-20 top-60 left-[98px] w-[90vw]"}>
             <div className={"w-1/2 flex items-center justify-center"}>
@@ -9,6 +11,9 @@ const HashtagHeader = () => {
                     hashtag:
                 </p>
                 <input type="text"
+                       onChange={e=>setSearch(e.target.value)}
+                       value={search}
+                       placeholder={search}
                        className={"relative focus:ring-0 bg-white border-b-2 border-b-[#E5007C]  w-full py-4 px-24 font-outfit text-[18px] ring-0 ring-red-400"}/>
             </div>
             <div className={"w-1/2 relative z-0 flex items-center justify-center shadow-lg"}>
@@ -24,6 +29,7 @@ const HashtagHeader = () => {
                             d="M9.8132 15.9038L9 18.75L8.1868 15.9038C7.75968 14.4089 6.59112 13.2403 5.09619 12.8132L2.25 12L5.09619 11.1868C6.59113 10.7597 7.75968 9.59112 8.1868 8.09619L9 5.25L9.8132 8.09619C10.2403 9.59113 11.4089 10.7597 12.9038 11.1868L15.75 12L12.9038 12.8132C11.4089 13.2403 10.2403 14.4089 9.8132 15.9038Z"
                             stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         <path
+                            // onClick={}
                             d="M18.2589 8.71454L18 9.75L17.7411 8.71454C17.4388 7.50533 16.4947 6.56117 15.2855 6.25887L14.25 6L15.2855 5.74113C16.4947 5.43883 17.4388 4.49467 17.7411 3.28546L18 2.25L18.2589 3.28546C18.5612 4.49467 19.5053 5.43883 20.7145 5.74113L21.75 6L20.7145 6.25887C19.5053 6.56117 18.5612 7.50533 18.2589 8.71454Z"
                             stroke="#0F172A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                         <path

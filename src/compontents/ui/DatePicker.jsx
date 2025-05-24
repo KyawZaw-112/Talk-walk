@@ -6,7 +6,7 @@ import {Button} from "@mui/material";
 import {format} from "date-fns";
 import {useData} from "../../context/context.jsx";
 const DatePicker = () => {
-    const [openDate,setOpenDate] = useState(true);
+    const [openDate,setOpenDate] = useState(false);
     const {date,setDate} = useData();
     const handlerChange= (ranges) => {
         setDate(ranges.selection)
@@ -15,18 +15,16 @@ const DatePicker = () => {
         setOpenDate(!openDate);
     }
 
-    console.log(format(date.startDate,"MM,dd,yyyy"))
 
     return (
-        <div className={" z-20"}>
-            <Button variant="outlined" onClick={handlerClick}>{`${format(date.startDate, "MMM/dd/yyyy")} - ${format(date.endDate, "MMM/dd/yyyy")}`}</Button>
+        <div className={" z-20 "}>
+            <Button variant="contained" onClick={handlerClick}>{`${format(date.startDate, "MMM/dd/yyyy")} - ${format(date.endDate, "MMM/dd/yyyy")}`}</Button>
             {
                 openDate &&
             <DateRangePicker
                 className="absolute right-0 top-16 shadow-xl"
                 ranges={[date]}
                 onChange={handlerChange}/>
-
             }
         </div>
     );

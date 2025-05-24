@@ -8,8 +8,6 @@ import {useData} from "../context/context.jsx";
 const Header = () => {
     const {setSearch,search} = useData()
     const location = useLocation();
-    console.log(location.pathname);
-    console.log(search)
     return (
         <section className={"absolute z-10 flex items-center justify-between top-36 left-[98px] w-[90vw]"}>
                 <p className={"font-outfit text-[28px] capitalize"}>{location.pathname === "/" && "Key Metric"}{location.pathname.slice(1,20)}</p>
@@ -42,7 +40,10 @@ const Header = () => {
                         />
                     </FormControl>
 
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg
+                        onClick={()=>setSearch("")}
+                        className={"cursor-pointer "}
+                        width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M16.023 9.34841H21.0156V9.34663M2.98438 19.6444V14.6517M2.98438 14.6517L7.97702 14.6517M2.98438 14.6517L6.16527 17.8347C7.15579 18.8271 8.41285 19.58 9.8646 19.969C14.2657 21.1483 18.7895 18.5364 19.9687 14.1353M4.03097 9.86484C5.21024 5.46374 9.73402 2.85194 14.1351 4.03121C15.5869 4.4202 16.8439 5.17312 17.8345 6.1655L21.0156 9.34663M21.0156 4.3558V9.34663" stroke="#345199" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                     <svg width="1" height="34" viewBox="0 0 1 34" fill="none" xmlns="http://www.w3.org/2000/svg">
