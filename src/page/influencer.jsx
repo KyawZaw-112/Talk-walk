@@ -2,6 +2,8 @@
 import React, {useEffect} from 'react';
 import {useData} from "../context/context.jsx";
 import DataTable from "../compontents/ui/DataTable.jsx";
+import AllNews from "../compontents/ui/AllNews.jsx";
+import TrendNews from "../compontents/ui/TrendNews.jsx";
 
 const Influencer = () => {
     const {search} = useData();
@@ -9,9 +11,8 @@ const Influencer = () => {
         document.title = "Influencer";
     },[]);
     return (
-        <div className={"top-90 w-[90%] bg-white h-[100vh]   left-24  absolute px-5 py-4 flex  flex-col gap-5"}>
-            <h1 className={"text-xl font-bold font-outfit "}>Real Time  News of {search.length === 0 ? "UAE" : search}</h1>
-            <DataTable />
+        <div className={"top-90 w-[90%] bg-white shadow-xl  left-24  absolute px-5 py-4 flex flex-row  items-center  gap-5"}>
+            <AllNews />
         </div>
     );
 };

@@ -28,14 +28,14 @@ const LineChartComponent = () => {
         //
         try {
             const {data} = await axios.get(
-                `https://ai.oigetit.com/AI71/Histogram?json=%7b%22StartDate%22:%22${date.startDate }%22,%22EndDate%22:%22${date.endDate }%22,%22Query%22:%22${search}%22%7d`
+                `https://ai.oigetit.com/AI71/Histogram?json=%7b%22StartDate%22:%22${format(date.startDate, "yyyy-MM-dd")}%22,%22EndDate%22:%22${format(date.endDate, "yyyy-MM-dd")}%22,%22Query%22:%22${search}%22%7d`
             );
             const transformedData = data.map(item => ({
                 date: ` ${item.pubdate}`,
                 Negative: item.volume_neg,
                 Positive: item.volume_pos,
                 Neutral: item.volume_neu,
-                Volume: item.volume / 2 + 40,
+                Volume: item.volume,
                 Sentiment: item.sentiment,
                 // Volume:item.volume_pos+item.volume_neg+item.volume_neu
             }));

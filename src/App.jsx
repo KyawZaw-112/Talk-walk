@@ -11,12 +11,13 @@ import WorldMap from "./page/WorldMap.jsx";
 import TopTheme from "./page/TopTheme.jsx";
 import Influencer from "./page/influencer.jsx";
 import {DataContextProvider} from "./context/context.jsx";
+import NewsDetail from "./compontents/ui/NewsDetail.jsx";
 
 const App = () => {
     return (
         <DataContextProvider>
 
-        <div className={"relative  w-full h-[200vh] overflow-hidden  bg-[#606060]/15"}>
+        <div className={"relative  w-full h-full  bg-[#606060]/15"}>
             <Navbar />
             <Filter />
             <Aside />
@@ -28,6 +29,7 @@ const App = () => {
                 <Route path={"/influencer"} element={<Influencer />} />
                 <Route path={"/top-theme"} element={<TopTheme />} />
                 <Route path={"/demographics"} element={<Demographics />} />
+                <Route path={"/influencer/article/:id"} element={<NewsDetail />} />
             </Routes>
         </div>
         </DataContextProvider>

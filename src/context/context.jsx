@@ -11,7 +11,7 @@ export const DataContextProvider = ({children}) => {
     const [lineChartData, setLineChartData] = useState([]);
     const [happiness, setHappiness] = useState(0);
     const [date, setDate] = useState({
-        startDate:  Date.now(),
+        startDate: new Date(),
         endDate: new Date(),
         key: 'selection',
     });
@@ -23,8 +23,7 @@ export const DataContextProvider = ({children}) => {
 
     const fetchLineChartData = async () => {
         const {api} = await axios.get(`https://ai.oigetit.com/AI71/Histogram?json=%7b%22StartDate%22:%22${format(date.startDate, "yyyy-MM-dd")}%22,%22EndDate%22:%22${format(date.endDate, "yyyy-MM-dd")}%22,%22Query%22:%22${search}%22%7d`)
-        const data = await api.json();
-        setLineChartData(data)
+        setLineChartData(api)
     }
 
     //

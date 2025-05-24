@@ -5,8 +5,8 @@ import {useData} from "../context/context.jsx";
 const Filter = () => {
     return (
         <>
-        <section className={"absolute top-16 left-[65px]"}>
-            <section className={"gap-3 justify-around px-4 bg-[#6989DD] w-[95.6vw]  h-[52px] flex flex-row  items-center"}>
+        <section className={"absolute top-16 left-12"}>
+            <section className={"gap-3 justify-around px-4 bg-[#6989DD] w-[95.9vw]  h-[52px] flex flex-row  items-center"}>
                 <div className={"flex gap-4"}>
                     <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path fillRule="evenodd" clipRule="evenodd"
